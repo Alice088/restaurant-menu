@@ -6,9 +6,9 @@
     "sourceMap": true,                              
     "esModuleInterop": true,                            
     "strict": true, 
-    "outDir": "./backend/dist",                                    
+    "outDir": "./dist",                                    
     "skipLibCheck": true,                                
   }, 
 
-  "include": ["backend/**/*"]
+  "include": ["./app/**/*", "app.ts"]
 }

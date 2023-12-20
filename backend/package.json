@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "type": "module",
   "description": "just simple menu with backend",
-  "main": "./app/app.ts",
+  "main": "app.ts",
   "scripts": {
-    "start-backend": "tsc && node ./dist/app.js"
+    "server-start": "tsc && node ./dist/app.js"
+  },  
+  "prisma": {
+    "schema": "./app/prisma/schema.prisma"
   },
   "keywords": [
     "express",
@@ -13,7 +16,7 @@
     "js",
     "ts",
     "PostgreSQL",
-    "prisma",
+    "prismaORM",
     "vue",
     "axios"
   ],
@@ -27,11 +30,12 @@
     "eslint": "^8.56.0",
     "eslint-plugin-vue": "^9.19.2",
     "prisma": "^5.7.1",
-    "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   },
   "dependencies": {
+    "@prisma/client": "^5.7.1",
     "axios": "^1.6.2",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2"
   }
 }
