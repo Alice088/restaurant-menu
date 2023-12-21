@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 
 export async function getMenuRows(req: Request, res: Response) {
 	await prisma.menu.findMany()
-		.then(res.send)
+		.then(res.send.bind(res))
 		.catch(error => {
 			res.send(error).status(500);
 			throw error;
@@ -45,7 +45,7 @@ export async function updateMenuRow(req: Request, res: Response) {
 
 export async function removeMenuRow(req: Request, res: Response) {
 	await prisma.menu.delete({ where: { id: +req.params.id } })
-		.then(res.send)
+		.then(res.send.bind(res))
 		.catch(error => {
 			res.send(error).status(500);
 			throw error;

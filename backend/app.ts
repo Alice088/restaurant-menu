@@ -6,6 +6,8 @@ const app = express();
 const env = new Env();
 const port = env.get("PORT") || 3001;
 
+
+app.use(express.json());
 app.use("/menu", useMenuRouter);
 
 app.listen(port, () => {
