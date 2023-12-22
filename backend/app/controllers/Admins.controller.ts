@@ -1,22 +1,26 @@
 import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
 import { toHashPassword } from "../hooks/toHashPassword.js";
+import { validationAdmin } from "../hooks/validationAdmin.js";
 
 const prisma = new PrismaClient();
 
 export async function addAdmin(req: Request, res: Response) {
 	try {
+		const { hashedPassword, newSalt } = toHashPassword(req.params.password);
+
 		const newAdmin = await prisma.admins.create({
 			data: {
 				login: req.params.login,
-				password: toHashPassword(req.params.password)
+				password: hashedPassword,
+				salt: newSalt
 			}
 		});
 
 		res.send(newAdmin);
 	} catch (error) {
 		res.send(error).status(500);
-		throw 500;
+		throw error;
 	}
 }
 
@@ -25,14 +29,16 @@ export async function removeAdmin(req: Request, res: Response) {
 		.then(res.send.bind(res))
 		.catch(error => {
 			res.send(error).status(500);
-			throw 500;
+			throw error;
 		});
 }
 
 export async function updateAdmin(req: Request, res: Response) {
 	for (const [key, value] of Object.entries(req.body)) {
 		if (key === "password") {
-			req.body[key] = toHashPassword(value as string);
+			const { hashedPassword, newSalt } = toHashPassword(value as string);
+			req.body[key] = hashedPassword;
+			req.body.salt = newSalt;
 		}
 	}
 
@@ -48,7 +54,7 @@ export async function updateAdmin(req: Request, res: Response) {
 		res.send(updatedAdmin);
 	} catch (error) {
 		res.send(error).status(500);
-		throw 500;
+		throw error;
 	}
 }
 
@@ -57,6 +63,17 @@ export async function getAdmins(req: Request, res: Response) {
 		.then(res.send.bind(res))
 		.catch(error => {
 			res.send(error).status(500);
-			throw 500;
+			throw error;
+		});
+}
+
+export async function validAdmin(req: Request, res: Response) {
+	prisma.admins.findFirst({ where: { id: +req.params.id } })
+		.then(admin => {
+			res.send(validationAdmin(admin, req.body.login, req.body.password));
+		})
+		.catch(error => {
+			res.send(error).status(500);
+			throw error;
 		});
 }
