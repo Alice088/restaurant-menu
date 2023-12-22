@@ -1,47 +1,85 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import TheButton from '@/components/ui/TheButton.vue';
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+  <main class="main">
+    <header class="main_header">
+      <h1>BLACK MARKET</h1>
+      <img src="@/assets/icons/156458.svg" alt="market's logo" />
+    </header>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
+    <nav class="main_productsNav">
+      <TheButton> products </TheButton>
+      <TheButton> add new products </TheButton>
+    </nav>
 
-  <main>
-    <TheWelcome />
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Category</th>
+          <th>Price</th>
+          <th>Name</th>
+        </tr>
+      </thead>
+
+      <tbody class="table_body">
+        <tr class="table_row">
+          <td>1</td>
+          <td>Human</td>
+          <td>2999$</td>
+          <td>Head of human</td>
+        </tr>
+      </tbody>
+    </table>
   </main>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-}
+<style lang="scss">
+.main {
+  background-color: black;
+  min-height: 100vh;
+  color: red;
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
+  .main_header {
     display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+    justify-content: center;
+    align-items: center;
+
+    font-size: clamp(20px, 9vw, 40px);
+    height: 150px;
+
+    img {
+      height: clamp(20px, 9vw, 40px);
+      width: clamp(20px, 9vw, 40px);
+    }
   }
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
+  .main_productsNav {
     display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
+    justify-content: center;
+
+    border: red double;
+    border-width: 2px 0 2px 0;
+    padding: 10px;
+
+    column-gap: clamp(40px, 9vw, 50vw);
+  }
+}
+
+.table {
+  width: 100%;
+  height: fit-content;
+  margin: 10px 0 10px 0;
+
+  overflow: scroll;
+  border: 1px red solid;
+
+  text-align: center;
+
+  * {
+    border: 1px red solid;
   }
 }
 </style>

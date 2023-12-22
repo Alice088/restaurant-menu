@@ -13,3 +13,9 @@ model Menu {
   price    Int
   name     String
 }
+
+model Admins {
+  id Int @id @default(autoincrement())
+  login String @unique
+  password String
+}

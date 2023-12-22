@@ -1,6 +1,7 @@
 {
-  "name": "restaurant-menu",
+  "name": "restaurant-menu-backend",
   "version": "1.0.0",
+  "private":"false",
   "type": "module",
   "description": "just simple menu with backend",
   "main": "app.ts",
