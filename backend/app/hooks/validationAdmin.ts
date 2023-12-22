@@ -3,13 +3,14 @@ import { toHashPassword } from "./toHashPassword.js";
 
 export function validationAdmin(admin: Admins | null, login: string, password: string) {
 	const { hashedPassword } = toHashPassword(password, admin?.salt);
-  
-	if (admin?.password === hashedPassword && admin.login === login) {
-		return true;
-	} else {
-		return {
-			login: admin?.login === login ? true : "login is wrong!",
-			password: admin?.password === hashedPassword ? true : "Password is wrong!"
-		};
-	}
+
+	const result = {
+		login: admin?.login === login,
+		password: admin?.password === hashedPassword,
+		isValid: false
+	};
+
+	result.isValid = result.login && result.password; 
+
+	return result;
 }

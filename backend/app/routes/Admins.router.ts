@@ -7,6 +7,6 @@ router.post("/createAdmin/:password/:login", addAdmin);
 router.delete("/deleteAdmin/:id", removeAdmin);
 router.patch("/updateAdmin/:id", updateAdmin);
 router.get("/allAdmins", getAdmins);
-router.post("/validAdmin/:id", validAdmin);
+router.post("/validAdmin/:login", validAdmin);
 
 export default router;

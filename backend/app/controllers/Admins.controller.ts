@@ -68,9 +68,12 @@ export async function getAdmins(req: Request, res: Response) {
 }
 
 export async function validAdmin(req: Request, res: Response) {
-	prisma.admins.findFirst({ where: { id: +req.params.id } })
+	prisma.admins.findFirst({ where: { login: req.params.login } })
 		.then(admin => {
-			res.send(validationAdmin(admin, req.body.login, req.body.password));
+			res.send({
+				valitedData: validationAdmin(admin, req.params.login, req.body.password),
+				id: admin?.id,
+			});
 		})
 		.catch(error => {
 			res.send(error).status(500);
